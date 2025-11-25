@@ -12,7 +12,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: 'http://localhost:5173' || 'https://primetrade-frontend-op4c.vercel.app',
+  origin:  'https://primetrade-frontend-op4c.vercel.app' || 'http://localhost:5173' ,
   credentials: true
 }));
 
