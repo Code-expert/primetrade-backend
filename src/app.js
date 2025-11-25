@@ -13,7 +13,9 @@ const app = express();
 app.use(helmet());
 app.use(cors({
   origin:  'https://primetrade-frontend-op4c.vercel.app' || 'http://localhost:5173' ,
-  credentials: true
+  credentials: true,
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Rate limiting
