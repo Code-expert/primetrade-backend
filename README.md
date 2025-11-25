@@ -389,11 +389,6 @@ npm run dev # Start development server with nodemon
 
 MIT
 
-## 👤 Author
-
-**Your Name**
-- Email: your.email@example.com
-- GitHub: [@yourusername](https://github.com/yourusername)
 
 ## 🤝 Contributing
 
@@ -402,3 +397,4 @@ Contributions, issues, and feature requests are welcome!
 ## ⭐ Show Your Support
 
 Give a ⭐️ if you like this project!
+
