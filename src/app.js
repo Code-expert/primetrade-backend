@@ -11,17 +11,31 @@ const app = express();
 
 // Security middleware
 app.use(helmet());
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://primetrade-frontend-op4c.vercel.app'
+];
+
 app.use(cors({
-  origin:  'https://primetrade-frontend-op4c.vercel.app' || 'http://localhost:5173' ,
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
-   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100 
 });
 app.use('/api/', limiter);
 
@@ -33,7 +47,6 @@ app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-
 
 // Health check
 app.get('/health', (req, res) => {
